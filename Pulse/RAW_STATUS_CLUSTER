@@ -1,0 +1,11 @@
+#!perl -w
+use LWP::UserAgent;
+my $address = "http://server000002285";
+my $port = "7180";
+my $username = "syssitdmmmmuuu";
+my $pass = 'alok123';
+my $browser = LWP::UserAgent->new;
+my $req =  HTTP::Request->new( GET => "$address:$port/api/v9/clusters/cluster/services");
+$req->authorization_basic( "$username", "$pass" );
+my $page = $browser->request( $req );
+print $page->content;

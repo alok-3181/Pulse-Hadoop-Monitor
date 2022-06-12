@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+#system ("./dev_expect.sh ");
+#system ("./dev_expect1.sh ");
+#system ("./DEV_ftpexpect.sh");
+system ("perl RAW_STATUS_CLUSTER > raw_cluster.txt");
+system ("sed -i 's/\"/ /g' raw_cluster.txt");
+system ("sed -i 's/,/ /g' raw_cluster.txt");
+system ("grep healthSummary raw_cluster.txt > health.txt");
+system ("grep displayName raw_cluster.txt > service.txt");
+system ("sed -i 's/displayName  :  //g' service.txt");
+system ("sed -i 's/healthSummary  :  //g' health.txt");
+system ("sed -i 's/YARN (MR2 Included)/YARN/g' service.txt");
+system ("sed -i 's/KMS (Navigator Key Trustee)/KMS/g' service.txt");
+system ("sed -i 's/^[ \t]*//;s/[ \t]*\$//' health.txt service.txt");
+system ("cp service.txt service_grep.txt");
+system ("sed -i 's/Sqoop 2/Sqoop/g' service_grep.txt");
+system ("perl dataextraction.pl");
+system ("perl generatehtml.pl > pcbdev_output.txt");
+system ("chmod 777 *");
+#system ("rm -rf webdata.txt service.txt health.txt cutdata.txt service_grep.txt");
